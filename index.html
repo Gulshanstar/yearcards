@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div class="year-selection-div">
+        <div class="checkboxcard">
+            <input type="checkbox" onchange="ShowCard(this)" id="year_2021" name="year">
+            <label for="year_2021" >YEAR 2021</label><br>
+            <input type="checkbox" onchange="ShowCard(this)" id="year_2022" name="year">
+            <label for="year_2022"> YEAR 2022</label><br>
+            <input type="checkbox" onchange="ShowCard(this)" id="year_2023" name="year">
+            <label for="year_2023"> YEAR 2023</label><br>
+        </div>
+    </div>
+
+    <div class="year-cards"> 
+        <div class="year-card" id="card_2021" style="display: none;">
+            <h1>2021</h1>
+            <div id="choose-months-heading-2021" onclick="ChangeMonth(2021)">Choose Months</div>
+            <div id="choose-months-2021" style="display: none;">
+                <div class="month-list">
+                    <div onclick="setYears('Jan','Feb','Mar','Apr',2021)" class="month-group">Jan-Apr</div><hr>
+                    <div onclick="setYears('May','June','July','Aug',2021)" class="month-group">May-Aug</div>
+                    <hr>
+                    <div onclick="setYears('Sep','Oct','Nov','Dec',2021)" class="month-group">Sep-Dec</div>
+                </div>
+            </div>
+            <div id="inputs-2021">
+                
+            </div>
+            <div style="display:block;background-color: #fff;position: relative;margin-top: 1rem;">
+                <button style="float: right;">Calculate</button>
+            </div>
+        </div>
+        <div class="year-card" id="card_2022" style="display: none;">
+            <h1>2022</h1>
+            <div id="choose-months-heading-2022" onclick="ChangeMonth(2022)">Choose Months</div>
+            <div id="choose-months-2022" style="display: none;">
+                <div class="month-list">
+                    <div onclick="setYears('Jan','Feb','Mar','Apr',2022)" class="month-group">Jan-Apr</div><hr>
+                    <div onclick="setYears('May','June','July','Aug',2022)" class="month-group">May-Aug</div>
+                    <hr>
+                    <div onclick="setYears('Sep','Oct','Nov','Dec',2022)" class="month-group">Sep-Dec</div>
+                </div>
+            </div>
+            <div id="inputs-2022">
+                
+            </div>
+            <div style="display:block;background-color: #fff;position: relative;margin-top: 1rem;">
+                <button style="float: right;">Calculate</button>
+            </div>
+        </div>
+        <div class="year-card" id="card_2023" style="display: none;">
+            <h1>2023</h1>
+            <div id="choose-months-heading-2023" onclick="ChangeMonth(2023)">Choose Months</div>
+            <div id="choose-months-2023" style="display: none;">
+                <div class="month-list">
+                    <div onclick="setYears('Jan','Feb','Mar','Apr',2023)" class="month-group">Jan-Apr</div><hr>
+                    <div onclick="setYears('May','June','July','Aug',2023)" class="month-group">May-Aug</div>
+                    <hr>
+                    <div onclick="setYears('Sep','Oct','Nov','Dec',2023)" class="month-group">Sep-Dec</div>
+                </div>
+            </div>
+            <div id="inputs-2023">
+                
+            </div>
+            <div style="display:block;background-color: #fff;position: relative;margin-top: 1rem;" onclick="Calculate(2023)">
+                <button style="float: right;">Calculate</button>
+            </div>
+        </div>
+        <!-- <div class="year-card">
+            2021
+        </div>
+        <div class="year-card">
+            2021
+        </div> -->
+    </div>
+    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        function ChangeMonth(year) {
+            if ($("#choose-months-"+year).css('display')=='none') {
+                $("#choose-months-"+year).css('display','block');
+            }else if($("#choose-months-"+year).css('display')=='block'){
+                $("#choose-months-"+year).css('display','none');
+            }
+            
+        }
+        function ShowCard(props){
+            console.log(props.id.split('_')[1]);
+            var Year=props.id.split('_')[1];
+            $(`#card_`+Year).css('display','inline-block');
+
+        }
+        function DisableAll(props){
+            console.log(props);
+            // $(".year-card").css('color','blue');
+            $(".month-inputs").prop('disabled',true);
+            $(props).prop('disabled',false);
+        }
+
+        function setYears(month1,month2,month3,month4,year){
+            $("#choose-months-"+year).css('display','none');
+            $("#choose-months-heading-"+year).html("Months : "+month1+"-"+month4)
+            var months=[month1,month2,month3,month4];
+            $("#inputs").html("");
+            var  i=0;
+            months.forEach(month => {
+                i++;
+                $("#inputs-"+year).append(`<label for="${month}_${year}">${month}</label><input onchange="DisableAll(this)" value="0" class="month-inputs" type="number" name="id_${year}[]" id="id_${i}_${year}" placeholder="${month}"><br>`);
+            });
+        }
+
+        function Calculate(year){
+            console.log($(`input[name="$${year}"]`));
+        }
+    </script>
+</body>
+
+</html>
